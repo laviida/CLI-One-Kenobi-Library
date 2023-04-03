@@ -35,14 +35,14 @@ const kenobi = new commander_1.Command("kenobi");
 shell.config.silent = true;
 kenobi.description(package_json_1.description).version(package_json_1.version);
 kenobi
-    .command("husky <path>")
+    .command("husky")
     .description("Initialize husky")
     .argument("<path>", "Defines the path where to install husky")
     .action(main_1.runHuskyCommand);
 kenobi
-    .command("backend <path> [resource]")
+    .command("backend")
     .description("Initialize husky")
     .argument("<path>", "Defines the path where to install the resource")
-    .argument("[resource]", "Defines the name of the resource")
+    .argument("<resource>", "Defines the name of the resource")
     .action(main_2.runBackendCommand);
 kenobi.parse(process.argv);
