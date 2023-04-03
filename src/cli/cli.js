@@ -41,7 +41,7 @@ kenobi
     .action(main_1.runHuskyCommand);
 kenobi
     .command("backend")
-    .description("Initialize husky")
+    .description("Creates a resource for specified backend path")
     .argument("<path>", "Defines the path where to install the resource")
     .argument("<resource>", "Defines the name of the resource")
     .action(main_2.runBackendCommand);

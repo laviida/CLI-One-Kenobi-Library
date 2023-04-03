@@ -30,7 +30,6 @@ exports.showHeader = void 0;
 const figlet = __importStar(require("figlet"));
 const chalk_1 = __importDefault(require("chalk"));
 const boxen_1 = __importDefault(require("boxen"));
-const package_json_1 = require("../../../package.json");
 const options = {
     font: "Star Wars",
     horizontalLayout: "default",
@@ -38,7 +37,7 @@ const options = {
     width: 80,
     whitespaceBreak: true,
 };
-const cliName = chalk_1.default.yellow(figlet.textSync(package_json_1.name.toUpperCase(), options));
+const cliName = chalk_1.default.yellow(figlet.textSync("Cli One \nKenobi", options));
 const poweredBy = chalk_1.default.gray("Powered by: Sergi");
 const header = (0, boxen_1.default)(`${cliName}\n\n${poweredBy}`, {
     padding: 1,
