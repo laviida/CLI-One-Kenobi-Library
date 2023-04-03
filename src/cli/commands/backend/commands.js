@@ -22,29 +22,29 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showHeader = void 0;
-const figlet = __importStar(require("figlet"));
-const chalk_1 = __importDefault(require("chalk"));
-const boxen_1 = __importDefault(require("boxen"));
-const package_json_1 = require("../../../package.json");
-const options = {
-    font: "Star Wars",
-    horizontalLayout: "default",
-    verticalLayout: "default",
-    width: 80,
-    whitespaceBreak: true,
+exports.isProjectStructureValid = void 0;
+const fs = __importStar(require("fs"));
+const isProjectStructureValid = async (path) => {
+    const apiPath = `${path}/src/app/api`;
+    const applicationPath = `${path}/src/app/application`;
+    const domainPath = `${path}/src/app/domain`;
+    // Utilizamos fs.promises para realizar las comprobaciones de forma asíncrona
+    const [apiExists, applicationExists, domainExists] = await Promise.all([
+        fs.promises
+            .stat(apiPath)
+            .then((stats) => stats.isDirectory())
+            .catch(() => false),
+        fs.promises
+            .stat(applicationPath)
+            .then((stats) => stats.isDirectory())
+            .catch(() => false),
+        fs.promises
+            .stat(domainPath)
+            .then((stats) => stats.isDirectory())
+            .catch(() => false),
+    ]);
+    // Devolvemos true si todas las carpetas existen, false en caso contrario
+    return apiExists && applicationExists && domainExists;
 };
-const cliName = chalk_1.default.yellow(figlet.textSync(package_json_1.name.toUpperCase(), options));
-const poweredBy = chalk_1.default.gray("Powered by: Sergi");
-const header = (0, boxen_1.default)(`${cliName}\n\n${poweredBy}`, {
-    padding: 1,
-    margin: 1,
-    borderStyle: "double",
-    borderColor: "yellow",
-});
-const showHeader = () => console.log(header);
-exports.showHeader = showHeader;
+exports.isProjectStructureValid = isProjectStructureValid;

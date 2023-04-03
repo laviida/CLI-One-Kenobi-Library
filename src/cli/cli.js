@@ -23,39 +23,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const shell = __importStar(require("shelljs"));
 const commander_1 = require("commander");
 const header_1 = require("./header/header");
-const ora_1 = __importDefault(require("ora"));
-const commands_1 = require("./commands/commands");
+const main_1 = require("./commands/husky/main");
+const package_json_1 = require("../../package.json");
+const main_2 = require("./commands/backend/main");
 (0, header_1.showHeader)();
-const program = new commander_1.Command();
+const kenobi = new commander_1.Command("kenobi");
 shell.config.silent = true;
-const spinner = (0, ora_1.default)();
-program
+kenobi.description(package_json_1.description).version(package_json_1.version);
+kenobi
     .command("husky <path>")
     .description("Initialize husky")
-    .action((path) => {
-    spinner.start("Instalando dependencias...");
-    (0, commands_1.install)(path).once("close", () => {
-        spinner.succeed();
-        spinner.start("Añadiendo configuración commitlint...");
-        (0, commands_1.commitlint)().once("close", () => {
-            spinner.succeed();
-            spinner.start("Editando package.json...");
-            (0, commands_1.prepare)().once("close", () => {
-                spinner.succeed();
-                spinner.start("Creando los hooks de husky...");
-                (0, commands_1.runPrepare)().once("close", () => {
-                    spinner.succeed();
-                    (0, commands_1.hooks)(path).then(() => console.log("Hooks instalados correctamente!"));
-                });
-            });
-        });
-    });
-});
-program.parse(process.argv);
+    .argument("<path>", "Defines the path where to install husky")
+    .action(main_1.runHuskyCommand);
+kenobi
+    .command("backend <path> [resource]")
+    .description("Initialize husky")
+    .argument("<path>", "Defines the path where to install the resource")
+    .argument("[resource]", "Defines the name of the resource")
+    .action(main_2.runBackendCommand);
+kenobi.parse(process.argv);
