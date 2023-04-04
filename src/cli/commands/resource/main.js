@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.write = exports.mkdir = exports.runBackendCommand = void 0;
+exports.write = exports.mkdir = exports.runResourceCommand = void 0;
 const ora_1 = __importDefault(require("ora"));
 const commands_1 = require("./commands");
 const project_architecture_1 = require("../../templates/backend/project-architecture");
@@ -39,7 +39,7 @@ const controller_1 = require("../../templates/backend/controller");
 const application_1 = require("../../templates/backend/application");
 const domain_1 = require("../../templates/backend/domain");
 const spinner = (0, ora_1.default)();
-const runBackendCommand = (path, resource) => {
+const runResourceCommand = (path, resource) => {
     spinner.start("Comprobando arquitectura...");
     (0, commands_1.isProjectStructureValid)(path).then((valid) => {
         if (!valid)
@@ -125,7 +125,7 @@ const runBackendCommand = (path, resource) => {
         });
     });
 };
-exports.runBackendCommand = runBackendCommand;
+exports.runResourceCommand = runResourceCommand;
 const mkdir = async (paths) => {
     return Promise.all(paths.map((p) => {
         return new Promise((resolve, reject) => {

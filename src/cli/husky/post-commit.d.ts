@@ -1,1 +1,0 @@
-export declare const postCommit = "#!/bin/bash\n. \"$(dirname \"$0\")/_/husky.sh\"\n\nif [ -e \"$PWD/.husky/post-commit\" ]\nthen\n    mv \"$PWD/.husky/post-commit\" \"$PWD/.husky/_post-commit\"\nfi\ngit add .\ngit commit --amend -C HEAD --no-verify\nexit 0\n";

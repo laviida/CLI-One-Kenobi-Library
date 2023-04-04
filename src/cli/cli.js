@@ -29,7 +29,8 @@ const commander_1 = require("commander");
 const header_1 = require("./header/header");
 const main_1 = require("./commands/husky/main");
 const package_json_1 = require("../../package.json");
-const main_2 = require("./commands/backend/main");
+const main_2 = require("./commands/resource/main");
+const main_3 = require("./commands/skeleton/main");
 (0, header_1.showHeader)();
 const kenobi = new commander_1.Command("kenobi");
 shell.config.silent = true;
@@ -40,9 +41,14 @@ kenobi
     .argument("<path>", "Defines the path where to install husky")
     .action(main_1.runHuskyCommand);
 kenobi
-    .command("backend")
+    .command("resource")
     .description("Creates a resource for specified backend path")
-    .argument("<path>", "Defines the path where to install the resource")
+    .argument("<path>", "Defines the root path where to install the resource")
     .argument("<resource>", "Defines the name of the resource")
-    .action(main_2.runBackendCommand);
+    .action(main_2.runResourceCommand);
+kenobi
+    .command("skeleton")
+    .description("A skeleton/boilerplate/starter project for quickly building RESTful APIs using NestsJS")
+    .argument("<path>", "Defines the path where to build the skeleton")
+    .action(main_3.runSkeletonCommand);
 kenobi.parse(process.argv);
