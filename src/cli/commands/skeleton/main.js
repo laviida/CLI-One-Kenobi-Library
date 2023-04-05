@@ -32,14 +32,12 @@ const fs = __importStar(require("fs"));
 const unzipper_1 = require("unzipper");
 const project_architecture_1 = require("../../templates/skeleton/project-architecture");
 const chalk_1 = __importDefault(require("chalk"));
+const path_1 = require("path");
 const spinner = (0, ora_1.default)();
 const runSkeletonCommand = (path) => {
     spinner.start("Copiando arquitectura...");
-    // return shell.exec(
-    //   `cp ./src/cli/templates/skeleton/architecture/architecture.zip ${path}/architecture.zip`,
-    //   { async: true }
-    // );
-    fs.copyFile("./src/cli/templates/skeleton/architecture/architecture.zip", `${path}/architecture.zip`, (err) => {
+    console.log("__dirname", __dirname);
+    fs.copyFile((0, path_1.join)(__dirname, "..", "..", "templates/skeleton/architecture/architecture.zip"), `${path}/architecture.zip`, (err) => {
         if (err)
             return spinner.fail(`Error inesperado:\n${err.message}`);
         spinner.succeed();
