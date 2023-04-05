@@ -36,7 +36,6 @@ const path_1 = require("path");
 const spinner = (0, ora_1.default)();
 const runSkeletonCommand = (path) => {
     spinner.start("Copiando arquitectura...");
-    console.log("__dirname", __dirname);
     fs.copyFile((0, path_1.join)(__dirname, "..", "..", "templates/skeleton/architecture/architecture.zip"), `${path}/architecture.zip`, (err) => {
         if (err)
             return spinner.fail(`Error inesperado:\n${err.message}`);
