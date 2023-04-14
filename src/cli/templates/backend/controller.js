@@ -12,6 +12,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Query,
   ParseIntPipe,
   Post,
   Put,
@@ -33,6 +34,7 @@ import {
 import { Create[entity]Dto } from './dto/create-[filename].dto';
 import { Update[entity]Dto } from './dto/update-[filename].dto';
 import { [entity] } from './entities/[filename].entity';
+import { PageOptionsDto } from '@core/database/dto/pagination-options.dto';
 
 @Controller('[filename]')
 @ApiTags('[entity]')
@@ -81,6 +83,17 @@ export class [entity]Controller {
   })
   getAll() {
     return this.[filename]Service.find();
+  }
+
+  @Get('paginate')
+  @ApiOperation({ summary: 'Paginate users' })
+  @ApiOkResponse({
+    type: Array<User>,
+    isArray: true,
+    description: 'Retrieves an array of users',
+  })
+  paginate(@Query() pageOptionsDto: PageOptionsDto) {
+    return this.usersService.paginate(pageOptionsDto);
   }
 
   @Post()
