@@ -29,15 +29,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.write = exports.mkdir = exports.runResourceCommand = void 0;
 const ora_1 = __importDefault(require("ora"));
 const commands_1 = require("./commands");
-const project_architecture_1 = require("../../templates/backend/project-architecture");
+const project_architecture_1 = require("../../templates/resource/project-architecture");
 const fs = __importStar(require("fs"));
 const path_1 = require("path");
-const constants_1 = require("../../templates/backend/constants");
-const entity_1 = require("../../templates/backend/entity");
-const dtos_1 = require("../../templates/backend/dtos");
-const controller_1 = require("../../templates/backend/controller");
-const application_1 = require("../../templates/backend/application");
-const domain_1 = require("../../templates/backend/domain");
+const constants_1 = require("../../templates/resource/constants");
+const entity_1 = require("../../templates/resource/entity");
+const dtos_1 = require("../../templates/resource/dtos");
+const controller_1 = require("../../templates/resource/controller");
+const application_1 = require("../../templates/resource/application");
+const domain_1 = require("../../templates/resource/domain");
 const spinner = (0, ora_1.default)();
 const runResourceCommand = (path, resource) => {
     spinner.start("Comprobando arquitectura...");
@@ -105,7 +105,8 @@ const runResourceCommand = (path, resource) => {
         // Domain File
         const domainData = domain_1.domain
             .replace(/\[entity\]/g, entityName)
-            .replace(/\[filename\]/g, plural);
+            .replace(/\[filename\]/g, plural)
+            .replace(/\[alias\]/g, entityName.toLowerCase());
         const domainPathData = {
             path: (0, path_1.join)(srcPath, "domain", plural, `${plural}.domain.ts`),
             data: domainData,
