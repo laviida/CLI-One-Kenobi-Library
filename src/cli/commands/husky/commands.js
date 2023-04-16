@@ -37,7 +37,7 @@ const install = (path) => {
 };
 exports.install = install;
 const commitlint = () => {
-    return shell.exec("echo \"module.exports = { extends: ['@commitlint/config-conventional'] };\" > commitlint.config.js", { async: true });
+    return shell.exec("echo module.exports = { extends: ['@commitlint/config-conventional'] }; > commitlint.config.js", { async: true });
 };
 exports.commitlint = commitlint;
 const prepare = () => {
