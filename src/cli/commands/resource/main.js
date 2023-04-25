@@ -43,7 +43,7 @@ const runResourceCommand = (path, resource) => {
     spinner.start("Comprobando arquitectura...");
     (0, commands_1.isProjectStructureValid)(path).then((valid) => {
         if (!valid)
-            return spinner.fail(`Invalid project architecture\nProject architecture must be:\n${project_architecture_1.projectArchitecture}`);
+            return spinner.fail(`Arquitectura del proyecto no válida\nLa arquitectura del proyecto debe ser:\n${project_architecture_1.projectArchitecture}`);
         spinner.succeed();
         spinner.start("Creando recursos...");
         const plural = resource.match(/s$/) ? resource + "es" : resource + "s";
@@ -86,6 +86,14 @@ const runResourceCommand = (path, resource) => {
             path: (0, path_1.join)(srcPath, "api", plural, "dto", `update-${plural}.dto.ts`),
             data: updateDtoData,
         };
+        // Pagination Dto File
+        const paginationDtoData = dtos_1.paginationDto
+            .replace(/\[entity\]/g, entityName)
+            .replace(/\[filename\]/g, plural);
+        const paginationDtoPathData = {
+            path: (0, path_1.join)(srcPath, "api", plural, "dto", `${plural}-pagination-options.dto.ts`),
+            data: paginationDtoData,
+        };
         // Controller File
         const controllerDtoData = controller_1.controller
             .replace(/\[entity\]/g, entityName)
@@ -117,11 +125,13 @@ const runResourceCommand = (path, resource) => {
                 entityPathData,
                 createDtoPathData,
                 updateDtoPathData,
+                paginationDtoPathData,
                 controllerDtoPathData,
                 applicationPathData,
                 domainPathData,
             ]).then(() => {
                 spinner.succeed();
+                console.log("Recursos creados correctamente!");
             });
         });
     });

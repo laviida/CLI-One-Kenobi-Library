@@ -21,4 +21,6 @@ export enum [entity]FilterBy {
   updatedAt = 'updatedAt',
 }
 
+export enum [entity]Relations {
+}
 `;
