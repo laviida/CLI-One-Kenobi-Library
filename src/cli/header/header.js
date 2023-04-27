@@ -38,7 +38,7 @@ const options = {
     whitespaceBreak: true,
 };
 const cliName = chalk_1.default.yellow(figlet.textSync("Cli One \nKenobi", options));
-const poweredBy = chalk_1.default.gray("Powered by: Sergi");
+const poweredBy = chalk_1.default.gray("Powered by: Sergi (https://github.com/laviida)");
 const header = (0, boxen_1.default)(`${cliName}\n\n${poweredBy}`, {
     padding: 1,
     margin: 1,
