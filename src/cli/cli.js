@@ -45,6 +45,7 @@ kenobi
     .description("Crea un recurso para la ruta de back-end especificada")
     .argument("<path>", "Define la ruta raíz donde instalar el recurso")
     .argument("<resource>", "Define el nombre del recurso")
+    .argument("<plural>", "Define el nombre del recurso en plural")
     .action(main_2.runResourceCommand);
 kenobi
     .command("skeleton")

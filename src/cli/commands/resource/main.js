@@ -39,18 +39,14 @@ const controller_1 = require("../../templates/resource/controller");
 const application_1 = require("../../templates/resource/application");
 const domain_1 = require("../../templates/resource/domain");
 const spinner = (0, ora_1.default)();
-const runResourceCommand = (path, resource) => {
+const runResourceCommand = (path, resource, plural) => {
     spinner.start("Comprobando arquitectura...");
     (0, commands_1.isProjectStructureValid)(path).then((valid) => {
         if (!valid)
             return spinner.fail(`Arquitectura del proyecto no válida\nLa arquitectura del proyecto debe ser:\n${project_architecture_1.projectArchitecture}`);
         spinner.succeed();
         spinner.start("Creando recursos...");
-        const plural = resource.match(/s$/) ? resource + "es" : resource + "s";
-        const singular = plural.match(/es$/)
-            ? plural.slice(0, -2)
-            : plural.slice(0, -1);
-        const entityName = singular.charAt(0).toUpperCase() + singular.slice(1);
+        const entityName = resource.charAt(0).toUpperCase() + resource.slice(1);
         const srcPath = `${path}/src/app`;
         const folders = [
             (0, path_1.join)(srcPath, "api", plural),
